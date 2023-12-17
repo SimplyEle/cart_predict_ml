@@ -12,6 +12,10 @@
     justify-content: center;
 }
 
+.page_nums {
+    margin-top: 20px;
+}
+
 .page-change-btn {
     padding: 0.5rem 1rem;
     margin: 0 0.5rem;

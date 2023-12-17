@@ -79,23 +79,25 @@ function DropdownItem({ children, ...props }) {
     );
 }
 
-Dropdown.Button = DropdownButton;
-Dropdown.Content = DropdownContent;
-Dropdown.List = DropdownList;
-Dropdown.Item = DropdownItem;
+// Dropdown.Button = DropdownButton;
+// Dropdown.Content = DropdownContent;
+// Dropdown.List = DropdownList;
+// Dropdown.Item = DropdownItem;
 
 function Toolbar(props) {
     return (
         <Dropdown>
-            <Dropdown.Button>Sort</Dropdown.Button>
-            <Dropdown.Content>
-                <Dropdown.List>
-                    <Dropdown.Item>Featured</Dropdown.Item>
-                    <Dropdown.Item>Top</Dropdown.Item>
-                    <Dropdown.Item>Price: Low to High</Dropdown.Item>
-                    <Dropdown.Item>Price: High to Low</Dropdown.Item>
-                </Dropdown.List>
-            </Dropdown.Content>
+            <DropdownButton>Sort</DropdownButton>
+            <DropdownContent>
+                <DropdownList>
+                    {props.isLogged ? (
+                        <DropdownItem>Featured</DropdownItem>
+                    ): null}
+                    <DropdownItem>Top</DropdownItem>
+                    <DropdownItem>Price: Low to High</DropdownItem>
+                    <DropdownItem>Price: High to Low</DropdownItem>
+                </DropdownList>
+            </DropdownContent>
         </Dropdown>
     );
 }

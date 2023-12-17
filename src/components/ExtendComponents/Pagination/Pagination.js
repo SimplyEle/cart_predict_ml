@@ -35,7 +35,7 @@ const Pagination = ({ pageDataLimit, data }) => {
                         <ProductCard key={i} products={product}/>
                 )}
             </div>
-            <div>
+            <div className="page_nums">
                 <div className="page-num-container">
                     <button
                         className={`page-change-btn ${currPageNo === 1 ? "disabled" : ""}  `}

@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import ProductCard from "../ProductCard/ProductCard";
-import { csv } from "d3-fetch";
-import products_sg from "../../data/products_sg.csv";
 import "./MainBox.css"
 import PreLoader from "../ExtendComponents/PreLoader/PreLoader";
 import {Pagination} from "../ExtendComponents/Pagination/Pagination";
@@ -9,22 +6,19 @@ import {Pagination} from "../ExtendComponents/Pagination/Pagination";
 
 function MainBox(props) {
 
-    const [data, setData] = useState([]);
-    const [isLoading, setLoading] = useState(true);
-
     useEffect(() => {
-        setLoading(true);
+        props.setLoading(true);
         const requestOptions = {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         };
         fetch('http://localhost:5000/', requestOptions, {mode: 'cors'}).then((res) => res.json()).then((data) => {
-            setData(data);
-            setLoading(false);
+            props.setData(data);
+            props.setLoading(false);
         });
     }, []);
 
-    if (isLoading) {
+    if (props.isLoading) {
         return (
             <div className="MainBox preloader">
                 <PreLoader />
@@ -34,7 +28,16 @@ function MainBox(props) {
 
     return (
         <div className="MainBox">
-            <Pagination pageDataLimit={20} data={data.res_list}/>
+            {props.isLogged ? (
+                <span id="title_main">
+                    <p>We recommend you</p>
+                </span>
+            ) : (
+                <span id="title_main">
+                    <p>Top products</p>
+                </span>
+            )}
+            <Pagination pageDataLimit={20} data={props.data.res_list}/>
         </div>
     );
 }

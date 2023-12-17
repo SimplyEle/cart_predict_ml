@@ -12,7 +12,7 @@ function HorizontalMenu(props) {
 
             </div>
             <div>
-                <User customer_id={"dw321"} />
+                <User data={props.data} setData={props.setData} isLogged={props.isLogged} setIsLogged={props.setIsLogged}/>
             </div>
         </div>
     );
