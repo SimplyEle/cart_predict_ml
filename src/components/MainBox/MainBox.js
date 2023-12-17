@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import "./MainBox.css"
 import PreLoader from "../ExtendComponents/PreLoader/PreLoader";
 import {Pagination} from "../ExtendComponents/Pagination/Pagination";
