@@ -10,3 +10,6 @@
 
 Город из датасета: Сингапур
 
+Команды для запуска приложения: \
+frontend: `npm run start` \
+backend: `npm run start-api`
