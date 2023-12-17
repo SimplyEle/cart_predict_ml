@@ -24,7 +24,7 @@ const Pagination = ({ pageDataLimit, data }) => {
 
     const getPageNumberGroup = () => {
         let start = Math.floor((currPageNo - 1) / 3) * 3;
-        return new Array(3).fill(" ").map((_, index) => start + index + 1);
+        return new Array(4).fill(" ").map((_, index) => start + index + 1);
     };
 
     return (

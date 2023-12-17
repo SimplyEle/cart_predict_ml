@@ -37,7 +37,7 @@ function MainBox(props) {
                     <p>Top products</p>
                 </span>
             )}
-            <Pagination pageDataLimit={20} data={props.data.res_list}/>
+            <Pagination pageDataLimit={12} data={props.data.res_list}/>
         </div>
     );
 }
