@@ -1,0 +1,32 @@
+.card {
+    background: #F1FFFA;
+    width: 200px;
+    height: 150px;
+    margin: 10px;
+    font-family: SimSun, sans-serif;
+    font-size: medium;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+#name_card {
+    margin-left: 10px;
+}
+
+#unit_price_card {
+    margin-left: 10px;
+}
+
+*::-webkit-scrollbar,
+*::-webkit-scrollbar-thumb {
+    width: 15px;
+    background-clip: padding-box;
+    border-radius: 13px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #454545;
+    border: 5px solid transparent;
+}

@@ -1,0 +1,6 @@
+.main {
+    height: 850px;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+}

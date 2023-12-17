@@ -1,0 +1,28 @@
+.horiz_menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    height: 60px;
+    background: #93B7BE;
+}
+
+.title {
+    margin-left: 50px;
+}
+
+.eH3{
+    font-family: SimSun, sans-serif;
+    font-size: 16px;
+    padding: 40px 25px;
+    text-align: center;
+    text-transform: uppercase;
+    text-rendering: optimizeLegibility;
+}
+.elegant {
+    color: #131313;
+    letter-spacing: .15em;
+    text-shadow:
+            1px -1px 0 #767676,
+            -1px 2px 1px #737272
+}

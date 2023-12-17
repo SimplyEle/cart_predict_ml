@@ -1,0 +1,10 @@
+.user_btn {
+    width: 200px;
+    height: 40px;
+    background: #F1FFFA;
+    margin-right: 45px;
+    font-family: SimSun, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
