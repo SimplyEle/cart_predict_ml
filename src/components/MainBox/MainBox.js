@@ -11,26 +11,6 @@ function MainBox(props) {
 
     const [data, setData] = useState([]);
     const [isLoading, setLoading] = useState(true);
-    let fileName = products_sg;
-
-    // useEffect(() => {
-    //     setLoading(true);
-    //
-    //     csv(fileName)
-    //         .then((text) => {
-    //             const words = text
-    //                 .map((d) => ({
-    //                     vendor_id: d.vendor_id.toString(),
-    //                     product_id: d.product_id.toString(),
-    //                     name: d.name.toString(),
-    //                     unit_price: parseFloat(d.unit_price.toString()).toFixed(6)
-    //                 }))
-    //                 .slice(0, 150);
-    //             setData(words);
-    //             setLoading(false);
-    //         })
-    //         .catch((error) => console.log(error));
-    // }, [fileName]);
 
     useEffect(() => {
         setLoading(true);
@@ -55,10 +35,6 @@ function MainBox(props) {
     return (
         <div className="MainBox">
             <Pagination pageDataLimit={20} data={data.res_list}/>
-            {/*{data.map(*/}
-            {/*    (product, i) =>*/}
-            {/*        <ProductCard key={i} products={product}/>*/}
-            {/*)}*/}
         </div>
     );
 }
