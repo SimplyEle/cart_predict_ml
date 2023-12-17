@@ -84,7 +84,7 @@ class Recommendations:
 
         return res
 
-    def personal_rec(self, customer_id_str='f374c8c54c'):
+    def personal_rec(self, customer_id_str):
 
         customer_id = self.customer_to_id[customer_id_str]
 

@@ -25,7 +25,7 @@ class RecSys:
 
         return self.pairs
 
-    def recommendations(self, rec='popularity'):
+    def recommendations(self, rec='popularity', customer_id_str='f374c8c54c'):
 
         recs = Recommendations(self.model, self.products_data, self.pairs, self.csr_matrix, self.id_to_product, self.product_to_id, self.customer_to_id)
 
@@ -33,7 +33,7 @@ class RecSys:
             recs.random_rec()
 
         elif rec == 'personal':
-            recs.personal_rec()
+            recs.personal_rec(customer_id_str)
 
         else:        
             recs.popularity_rec()

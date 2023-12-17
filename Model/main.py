@@ -42,7 +42,7 @@ model = RecSys(orders_train, orders_test, products_data, user_id=0)
 model.baseline()
 model.vectorization()
 
-model.recommendations('personal')
+model.recommendations('personal', '2e7276ad3a')
 model.recommendations()
 model.recommendations('random')
 
