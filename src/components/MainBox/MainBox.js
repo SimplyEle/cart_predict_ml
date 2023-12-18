@@ -14,6 +14,7 @@ function MainBox(props) {
         };
         fetch('http://localhost:5000/', requestOptions, {mode: 'cors'}).then((res) => res.json()).then((data) => {
             props.setData(data);
+            props.setTopData(data);
             props.setLoading(false);
         });
     }, []);

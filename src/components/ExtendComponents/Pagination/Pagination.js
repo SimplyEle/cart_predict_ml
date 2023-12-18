@@ -3,7 +3,6 @@ import ProductCard from "../../ProductCard/ProductCard";
 import './Pagination.css'
 
 const Pagination = ({ pageDataLimit, data }) => {
-    // console.log(Array.from(data.res_list))
     const [currPageNo, setCurrPageNo] = useState(1);
     const [currPagePosts, setCurrPagePosts] = useState([]);
     const [pageNumberGroup, setPageNumberGroup] = useState([]);

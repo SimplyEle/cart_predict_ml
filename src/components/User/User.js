@@ -10,6 +10,7 @@ function User(props) {
 
     const handleSubmit = e => {
         e.preventDefault();
+        props.setLoading(true);
         setUser_id(user_id);
         const requestOptions = {
             method: 'POST',
@@ -17,14 +18,16 @@ function User(props) {
         };
         fetch(`http://localhost:5000/${user_id}`, requestOptions)
             .then((res) =>
-                //console.log(res),
                 res.json().then((data) => {
                     console.log(data);
                     props.setData(data);
                     props.setIsLogged(true);
+                    props.setFeaturedData(data);
+                    props.setLoading(false);
                 })
                 .catch(error => {
                     console.error('Error', error);
+                    props.setLoading(false);
                 })
             );
     }

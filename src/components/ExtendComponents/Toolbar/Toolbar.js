@@ -71,31 +71,44 @@ function DropdownList({ children, ...props }) {
     );
 }
 
-function DropdownItem({ children, ...props }) {
-    return (
-        <li>
-            <button className="py-3 px-5 whitespace-nowrap hover:underline" {...props}>{ children }</button>
-        </li>
-    );
+function dataSort(data, type) {
+    let res_data = {}
+
+    if (type==="high_to_low"){
+        res_data = {
+            "res_list": data.sort((a, b) => b[3] - a[3])
+        }
+    }
+    else if (type==="low_to_high"){
+        res_data = {
+            "res_list": data.sort((a, b) => a[3] - b[3])
+        }
+    }
+
+    return res_data;
 }
 
-// Dropdown.Button = DropdownButton;
-// Dropdown.Content = DropdownContent;
-// Dropdown.List = DropdownList;
-// Dropdown.Item = DropdownItem;
-
 function Toolbar(props) {
+
     return (
         <Dropdown>
             <DropdownButton>Sort</DropdownButton>
             <DropdownContent>
                 <DropdownList>
                     {props.isLogged ? (
-                        <DropdownItem>Featured</DropdownItem>
+                        <li>
+                            <button className="py-3 px-5 whitespace-nowrap hover:underline" onClick={() => props.setData(props.featuredData)}>Featured</button>
+                        </li>
                     ): null}
-                    <DropdownItem>Top</DropdownItem>
-                    <DropdownItem>Price: Low to High</DropdownItem>
-                    <DropdownItem>Price: High to Low</DropdownItem>
+                    <li>
+                        <button className="py-3 px-5 whitespace-nowrap hover:underline" onClick={() => props.setData(props.topData)}>Top</button>
+                    </li>
+                    <li>
+                        <button className="py-3 px-5 whitespace-nowrap hover:underline" onClick={() =>props.setData(dataSort(props.data.res_list.slice(),"low_to_high"))}>Price: Low to High</button>
+                    </li>
+                    <li>
+                        <button className="py-3 px-5 whitespace-nowrap hover:underline" onClick={() =>props.setData(dataSort(props.data.res_list.slice(),"high_to_low"))}>Price: High to Low</button>
+                    </li>
                 </DropdownList>
             </DropdownContent>
         </Dropdown>
