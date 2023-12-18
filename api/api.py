@@ -41,9 +41,22 @@ model = RecSys(orders_train, orders_test, products_data, user_id=0)
 model.baseline()
 model.vectorization()
 
-@app.route('/', methods=['GET'])
+@app.route('/get_random', methods=['GET'])
 @cross_origin()
-def predict_cart(user_id='2e7276ad3a'):
+def get_random():
+    prediction = model.recommendations('random').random_rec(1).values.tolist()
+    return jsonify({'rand_pr': prediction})
+
+@app.route('/<user_id>', methods=['POST'])
+@cross_origin()
+def predict_cart(user_id):
     # vendor_id, product_id, name, unit_price
     prediction = model.recommendations('personal', user_id).personal_rec(user_id).values.tolist()
+    return jsonify({'res_list': prediction})
+
+@app.route('/', methods=['GET'])
+@cross_origin()
+def show_top():
+    # vendor_id, product_id, name, unit_price
+    prediction = model.recommendations('personal').popularity_rec(100).values.tolist()
     return jsonify({'res_list': prediction})
