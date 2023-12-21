@@ -20,13 +20,16 @@ function User(props) {
             .then((res) =>
                 res.json().then((data) => {
                     console.log(data);
+                    props.setNewUser(false);
                     props.setData(data);
                     props.setIsLogged(true);
                     props.setFeaturedData(data);
                     props.setLoading(false);
                 })
                 .catch(error => {
-                    console.error('Error', error);
+                    console.log("new user");
+                    props.setIsLogged(false);
+                    props.setNewUser(true);
                     props.setLoading(false);
                 })
             );

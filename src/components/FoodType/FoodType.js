@@ -20,7 +20,7 @@ function FoodType(props) {
     return (
         <div className="ft_section">
             <div className="inner_ft_sec">
-                <Toolbar data={props.data} setData={props.setData} topData={props.topData} featuredData={props.featuredData} isLogged={props.isLogged}/>
+                {props.newUser ? (<div style={{height: "100px"}}></div>) : (<Toolbar data={props.data} setData={props.setData} topData={props.topData} featuredData={props.featuredData} isLogged={props.isLogged}/>)}
                 <RandomProduct data={randomProduct} isLoading={props.isLoading}/>
             </div>
         </div>

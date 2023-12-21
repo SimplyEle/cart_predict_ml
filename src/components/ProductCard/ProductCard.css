@@ -14,7 +14,6 @@
 }
 
 #name_back {
-    background: rgba(17, 85, 124, 0.8);
     margin-top: -10px;
     margin-left: -1px;
     margin-right: -5px;
@@ -43,7 +42,6 @@
 }
 
 #price_span {
-    background: rgba(17, 85, 124, 0.8);
     margin-left: 30px;
     text-align: right;
     width: 90%;
@@ -53,6 +51,7 @@
 }
 
 #price_num {
+    color: white;
     font-size: x-large;
     font-weight: bolder;
     margin-right: 10px;
@@ -68,4 +67,12 @@
 *::-webkit-scrollbar-thumb {
     background-color: #454545;
     border: 5px solid transparent;
+}
+
+.red_scheme {
+    background: #9c1a2d;
+}
+
+.standard_scheme {
+    background: rgba(17, 85, 124, 0.8);
 }
