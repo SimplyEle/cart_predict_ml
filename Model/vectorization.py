@@ -2,6 +2,7 @@ from sklearn.model_selection import train_test_split
 from scipy.sparse import csr_matrix
 import pandas as pd
 import numpy as np
+#from tqdm import tqdm
 
 class Vectorization:
 
@@ -33,13 +34,16 @@ class Vectorization:
 
     def df_vectors(self):
 
-        orders_val, orders_test = self.orders_train, self.orders_test
+        orders_val, orders_test = self.orders_train,self.orders_test#train_test_split(self.orders_test, test_size=0.5, shuffle=True)
 
         test_group = orders_test.groupby('customer_id').apply(lambda cust: cust.product_id.unique()).reset_index(name='product_ids')
         val_group = orders_val.groupby('customer_id').apply(lambda cust: cust.product_id.unique()).reset_index(name='product_ids')
 
         test_group_slice = test_group.iloc[::]
         val_group_slice = val_group.iloc[::]
+
+        #test_dataset_vectors = { row['customer_id'] : self.vectorize_action_history(row['product_ids']) for i, row in test_group_slice.iterrows() }
+        #ground_truth_dataset_vectors = { row['customer_id'] : self.vectorize_action_history(row['product_ids']) for i, row in val_group_slice.iterrows() }
 
         test_dataset_vectors = { row['customer_id'] : self.vectorize_action_history(row['product_ids']) for i, row in test_group_slice.iterrows() }
         
@@ -51,6 +55,8 @@ class Vectorization:
 
 
         return test_dataset_vectors, ground_truth_dataset_vectors
+        #print('test dataset length: %d', len(test_dataset_vectors))
+        #print('test dataset length: %d', len(ground_truth_dataset_vectors))
 
     def train_valid_union(self):
         train_valid_pairs = []

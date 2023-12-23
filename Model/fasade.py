@@ -14,7 +14,7 @@ class RecSys:
 
         self.product_to_id, self.id_to_product, self.customer_to_id = model.indexing()
         self.csr_matrix = model.create_csr(self.customer_to_id, self.product_to_id)
-        self.model = model.model_als_fit(self.csr_matrix, self.customer_to_id, self.product_to_id, factors=20, iterations=30)
+        self.model = model.model_als_fit(self.csr_matrix, self.customer_to_id, self.product_to_id, factors=20, iterations=20)
         return self.model
 
     def vectorization(self):
@@ -25,15 +25,15 @@ class RecSys:
 
         return self.pairs
 
-    def recommendations(self, rec='popularity', customer_id_str='f374c8c54c'):
+    def recommendations(self, rec='popularity'):
 
-        recs = Recommendations(self.model, self.products_data, self.pairs, self.csr_matrix, self.id_to_product, self.product_to_id, self.customer_to_id)
+        recs = Recommendations(self.model, self.products_data, self.pairs, self.csr_matrix, self.id_to_product,self.product_to_id)
 
         if rec == 'random':
             recs.random_rec()
 
         elif rec == 'personal':
-            recs.personal_rec(customer_id_str)
+            recs.personal_rec(self.customer_id)
 
         else:        
             recs.popularity_rec()
