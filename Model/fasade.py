@@ -14,28 +14,28 @@ class RecSys:
 
         self.product_to_id, self.id_to_product, self.customer_to_id = model.indexing()
         self.csr_matrix = model.create_csr(self.customer_to_id, self.product_to_id)
-        self.model = model.model_als_fit(self.csr_matrix, self.customer_to_id, self.product_to_id, factors=20, iterations=20)
+        self.model = model.model_als_fit(self.csr_matrix, self.customer_to_id, self.product_to_id, factors=250, iterations=1)
         return self.model
 
     def vectorization(self):
 
-        pairs = Vectorization(self.orders_train,self.orders_test, self.product_to_id)
+        pairs = Vectorization(self.orders_train,self.orders_test, self.product_to_id, self.customer_to_id)
 
         self.pairs = pairs.train_valid_union()
 
         return self.pairs
 
-    def recommendations(self, rec='popularity'):
+    def recommendations(self, rec='popularity', customer_id_str='f374c8c54c'):
 
-        recs = Recommendations(self.model, self.products_data, self.pairs, self.csr_matrix, self.id_to_product,self.product_to_id)
+        recs = Recommendations(self.model, self.products_data, self.pairs, self.csr_matrix, self.id_to_product, self.product_to_id, self.customer_to_id)
 
         if rec == 'random':
-            recs.random_rec()
+            recsys, accuracy = recs.random_rec(N=50)
 
         elif rec == 'personal':
-            recs.personal_rec(self.customer_id)
+            recsys, accuracy = recs.personal_rec(customer_id_str, N=50)
 
         else:        
-            recs.popularity_rec()
+            recsys, accuracy = recs.popularity_rec(N=50)
 
-        return recs
+        return recsys, accuracy
