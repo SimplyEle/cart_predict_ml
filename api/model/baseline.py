@@ -13,6 +13,7 @@ class BaseLine:
         
 
     def indexing(self):
+
         unique_customers = self.orders_train.customer_id.unique()
         unique_products = self.orders_train.product_id.unique()
 
@@ -22,29 +23,29 @@ class BaseLine:
 
         # прямая индексация пользователей
         customer_to_id = {j: i for i, j in enumerate(unique_customers)}
-        #print('Индекс создан: %d строк %d столбцов' % (len(customer_to_id), len(product_to_id)))
+        
         return product_to_id, id_to_product, customer_to_id
 
     def last_views_top(self):
-        HISTORY_TOP = 50
-        # применяем оконную функцию
-        self.orders_train['rank'] = (self.orders_train.groupby(by=['customer_id'])['order_day'].rank(method='first', ascending=True))
 
-        ui_slim_df = (self.orders_train[self.orders_train['rank'] < HISTORY_TOP][['customer_id', 'product_id']])
+        order_day_max = 90
+        order_day_min = 1
+        
+        orders_filter = self.orders_train.loc[(self.orders_train['order_day_int'] < order_day_max) & (self.orders_train['order_day_int'] > order_day_min)][['customer_id', 'product_id']]
+        
+        entries = np.ones(orders_filter.shape[0])
 
-
-        entries = np.ones(ui_slim_df.shape[0])
-        return ui_slim_df, entries
+        return orders_filter, entries
 
     def create_csr(self, customer_to_id, product_to_id):
 
-        ui_slim_df, entries = self.last_views_top()
+        orders_filter, entries = self.last_views_top()
 
         num_rows = len(customer_to_id)
         num_cols = len(product_to_id)
-        entries = np.ones(ui_slim_df.shape[0])  # проставляем ненулевые элементы - единицы
-        rows = tuple(customer_to_id[i] for i in ui_slim_df.customer_id.values)
-        cols = tuple(product_to_id[i] for i in ui_slim_df.product_id.values)
+        entries = np.ones(orders_filter.shape[0])  # проставляем ненулевые элементы - единицы
+        rows = tuple(customer_to_id[i] for i in orders_filter.customer_id.values)
+        cols = tuple(product_to_id[i] for i in orders_filter.product_id.values)
 
         train_set_csr = csr_matrix(
             (entries, (rows, cols)),
@@ -53,9 +54,9 @@ class BaseLine:
 
         return train_set_csr
 
-    def model_als_fit(self, train_set_csr, customer_to_id, product_to_id, factors=4, iterations=1):
+    def model_als_fit(self, train_set_csr, customer_to_id, product_to_id, factors=64, iterations=1):
         
-        implict_als_params = {'factors': factors, 'alpha': 0.2, 'iterations': iterations, 'calculate_training_loss': True}
+        implict_als_params = {'factors': factors, 'alpha': 0.1, 'iterations': iterations, 'calculate_training_loss': True}
         model = AlternatingLeastSquares(**implict_als_params)
 
         # на вход подаём матрицу user_item

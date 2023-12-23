@@ -4,7 +4,6 @@ import pickle
 import pandas as pd
 import os
 from model.fasade import RecSys
-from model.main import replace_order_day
 
 app = Flask(__name__)
 
@@ -14,17 +13,16 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 root_data_dir = 'data'
 
-
 orders_train = (
     pd.read_csv(
-        os.path.join(root_data_dir, 'data_sg', 'orders_sg_train.txt'),
+        os.path.join(root_data_dir, 'data_sg', 'train_data.txt'),
         nrows=10000,
         index_col=0))
 
 
 orders_test = (
     pd.read_csv(
-        os.path.join(root_data_dir, 'data_sg', 'orders_sg_test.txt'),
+        os.path.join(root_data_dir, 'data_sg', 'test_data.txt'),
         nrows=10000,
         index_col=0))
 
@@ -34,7 +32,6 @@ products_data = (
         os.path.join(root_data_dir, 'data_sg', 'products_sg.txt'),
         index_col=0))
 
-orders_train['order_day'] = orders_train['order_day'].apply(replace_order_day)
 
 model = RecSys(orders_train, orders_test, products_data, user_id=0)
 
@@ -44,19 +41,22 @@ model.vectorization()
 @app.route('/get_random', methods=['GET'])
 @cross_origin()
 def get_random():
-    prediction = model.recommendations('random').random_rec(1).values.tolist()
+    prediction, acc = model.recommendations('random')
+    prediction = prediction.values.tolist()
     return jsonify({'rand_pr': prediction})
 
 @app.route('/<user_id>', methods=['POST'])
 @cross_origin()
 def predict_cart(user_id):
     # vendor_id, product_id, name, unit_price
-    prediction = model.recommendations('personal', user_id).personal_rec(user_id).values.tolist()
+    prediction, acc = model.recommendations('personal', user_id)
+    prediction = prediction.values.tolist()
     return jsonify({'res_list': prediction})
 
 @app.route('/', methods=['GET'])
 @cross_origin()
 def show_top():
     # vendor_id, product_id, name, unit_price
-    prediction = model.recommendations('personal').popularity_rec(100).values.tolist()
+    prediction, acc = model.recommendations()
+    prediction = prediction.values.tolist()
     return jsonify({'res_list': prediction})
