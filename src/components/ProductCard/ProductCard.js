@@ -2,7 +2,7 @@ import React from 'react';
 import "./ProductCard.css"
 
 function ProductCard(props) {
-
+    /*score*/
     return (
         <div className={`card custom-scrollbar`}>
             <span id={`name_back`} className={props.color}>

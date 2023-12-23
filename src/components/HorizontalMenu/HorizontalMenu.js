@@ -12,7 +12,7 @@ function HorizontalMenu(props) {
 
             </div>
             <div>
-                <User setNewUser={props.setNewUser} data={props.data} setData={props.setData} isLogged={props.isLogged} setIsLogged={props.setIsLogged} setFeaturedData={props.setFeaturedData} isLoading={props.isLoading} setLoading={props.setLoading}/>
+                <User setRandomProduct={props.setRandomProduct} setNewUser={props.setNewUser} data={props.data} setData={props.setData} isLogged={props.isLogged} setIsLogged={props.setIsLogged} setFeaturedData={props.setFeaturedData} isLoading={props.isLoading} setLoading={props.setLoading}/>
             </div>
         </div>
     );

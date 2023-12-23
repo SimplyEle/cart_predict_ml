@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import "./User.css"
 
 function User(props) {
@@ -33,6 +33,13 @@ function User(props) {
                     props.setLoading(false);
                 })
             );
+        const reqOptions = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        };
+        fetch('http://localhost:5000/get_random', reqOptions, {mode: 'cors'}).then((res) => res.json()).then((data) => {
+            props.setRandomProduct(data.rand_pr[0]);
+        });
     }
 
     return (
