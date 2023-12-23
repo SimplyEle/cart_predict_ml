@@ -53,14 +53,17 @@ class Vectorization:
 
         ground_truth_dataset_vectors = { row['customer_id'] : self.vectorize_action_history(row['product_ids']) for i, row in val_group_slice.iterrows() if row['customer_id'] in test_dataset_vectors}
 
-
         return test_dataset_vectors, ground_truth_dataset_vectors
 
     def train_valid_union(self):
 
+        #customer_ids = set(self.orders_train.customer_id.unique())
+
         train_valid_pairs = []
 
         test_dataset_vectors, ground_truth_dataset_vectors = self.df_vectors()
+
+        csr_test_df_vcs = {self.customer_to_id[key]: csr_matrix(test_dataset_vectors[key]) for key in test_dataset_vectors.keys()}
 
         for customer_id in test_dataset_vectors.keys():
 
@@ -71,5 +74,6 @@ class Vectorization:
                 ground_truth_dataset_vectors[customer_id].nonzero()[0]
             ))
 
+
             
-        return train_valid_pairs
+        return train_valid_pairs, csr_test_df_vcs
