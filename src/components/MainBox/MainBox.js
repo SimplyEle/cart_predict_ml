@@ -40,7 +40,7 @@ function MainBox(props) {
                     <span id="title_main">
                         <p>We recommend you</p>
                     </span>
-                    <Pagination pageDataLimit={12} data={props.data.res_list} color={"standard_scheme"}/>
+                    <Pagination pageDataLimit={12} data={props.data.res_list} color={"standard_scheme"} isPersonal={true}/>
                 </>
             ) : (
                 <>
@@ -51,19 +51,19 @@ function MainBox(props) {
                                     <p>Top products last 10 days</p>
                                 </span>
                                 <Toolbar data={dataTopLast} setData={setDataTopLast} topData={props.topData} featuredData={props.featuredData} isLogged={props.isLogged}/>
-                                <Pagination pageDataLimit={4} data={dataTopLast.res_list} color={"red_scheme"}/>
+                                <Pagination pageDataLimit={4} data={dataTopLast.res_list} color={"red_scheme"} isPersonal={false}/>
                                 <span id="title_main">
                                     <p>Top products</p>
                                 </span>
                                 <Toolbar data={props.data} setData={props.setData} topData={props.topData} featuredData={props.featuredData} isLogged={props.isLogged}/>
-                                <Pagination pageDataLimit={4} data={props.data.res_list} color={"standard_scheme"}/>
+                                <Pagination pageDataLimit={4} data={props.data.res_list} color={"standard_scheme"} isPersonal={false}/>
                             </>
                         ) : (
                             <>
                                 <span id="title_main">
                                     <p>Top products</p>
                                 </span>
-                                <Pagination pageDataLimit={12} data={props.data.res_list} color={"standard_scheme"}/>
+                                <Pagination pageDataLimit={12} data={props.data.res_list} color={"standard_scheme"} isPersonal={false}/>
                             </>
                         )
                     }

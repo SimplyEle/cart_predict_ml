@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ProductCard from "../../ProductCard/ProductCard";
 import './Pagination.css'
 
-const Pagination = ({ pageDataLimit, data, color }) => {
+const Pagination = ({ pageDataLimit, data, color, isPersonal }) => {
     const [currPageNo, setCurrPageNo] = useState(1);
     const [currPagePosts, setCurrPagePosts] = useState([]);
     const [pageNumberGroup, setPageNumberGroup] = useState([]);
@@ -31,7 +31,7 @@ const Pagination = ({ pageDataLimit, data, color }) => {
             <div className="pagination_list">
                 {currPagePosts.map(
                     (product, i) =>
-                        <ProductCard key={i} products={product} color={color}/>
+                        <ProductCard key={i} products={product} color={color} isPersonal={isPersonal}/>
                 )}
             </div>
             <div className="page_nums">

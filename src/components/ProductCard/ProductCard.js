@@ -12,12 +12,26 @@ function ProductCard(props) {
                 </span>
             </span> <br />
             <span id="unit_price_card">
-                <span> Price: </span>
-                <span id={`price_span`} className={props.color}>
-                    <span id="price_num">
-                        { props.products[3].toFixed(4) }
-                    </span>
-                </span>
+                {(props.isPersonal===true) ? (
+                        <>
+                            <span> Score: </span>
+                                <span id={`price_span`} className={props.color}>
+                                <span id="price_num">
+                                    { props.products[4].toFixed(4) }
+                                </span>
+                            </span>
+                        </>
+                    ) : (
+                        <>
+                            <span> Price: </span>
+                            <span id={`price_span`} className={props.color}>
+                                <span id="price_num">
+                                    { props.products[3].toFixed(4) }
+                                </span>
+                            </span>
+                        </>
+                )
+                }
             </span>
         </div>
     );
