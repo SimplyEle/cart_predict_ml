@@ -37,8 +37,9 @@ class Vectorization:
 
         orders_val, orders_test = self.orders_train, self.orders_test
 
-        test_group = orders_test.groupby('customer_id').apply(lambda cust: cust.product_id.unique()).reset_index(name='product_ids')
-        val_group = orders_val.groupby('customer_id').apply(lambda cust: cust.product_id.unique()).reset_index(name='product_ids')
+
+        test_group = orders_test.groupby('customer_id', sort=False).apply(lambda cust: cust.product_id.unique()).reset_index(name='product_ids')
+        val_group = orders_val.groupby('customer_id', sort=False).apply(lambda cust: cust.product_id.unique()).reset_index(name='product_ids')
 
 
         test_group_slice = test_group.iloc[::]
@@ -47,13 +48,13 @@ class Vectorization:
 
         test_dataset_vectors = { row['customer_id'] : self.vectorize_action_history(row['product_ids']) for i, row in test_group_slice.iterrows() }
         
+
         for key in set(test_dataset_vectors.keys()):
             if sum(test_dataset_vectors[key]) == 0:
                 del test_dataset_vectors[key]
 
+
         ground_truth_dataset_vectors = { row['customer_id'] : self.vectorize_action_history(row['product_ids']) for i, row in val_group_slice.iterrows() if row['customer_id'] in test_dataset_vectors}
-
-
         return test_dataset_vectors, ground_truth_dataset_vectors
 
     def train_valid_union(self):
@@ -70,6 +71,7 @@ class Vectorization:
                 csr_matrix(test_dataset_vectors[customer_id]),  # csr матрица на вход ALS
                 ground_truth_dataset_vectors[customer_id].nonzero()[0]
             ))
+
 
             
         return train_valid_pairs

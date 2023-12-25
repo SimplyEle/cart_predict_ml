@@ -18,10 +18,10 @@ function MainBox(props) {
         fetch('http://localhost:5000/', requestOptions, {mode: 'cors'}).then((res) => res.json()).then((data) => {
             props.setData(data);
             props.setTopData(data);
-            // временно
-            setDataTopLast(data);
-            //
             props.setLoading(false);
+        });
+        fetch('http://localhost:5000/top_n_days', requestOptions, {mode: 'cors'}).then((res) => res.json()).then((data) => {
+            setDataTopLast(data);
         });
     }, []);
 

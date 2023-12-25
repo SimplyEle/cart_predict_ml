@@ -19,7 +19,6 @@ function User(props) {
         fetch(`http://localhost:5000/${user_id}`, requestOptions)
             .then((res) =>
                 res.json().then((data) => {
-                    console.log(data);
                     props.setNewUser(false);
                     props.setData(data);
                     props.setIsLogged(true);
