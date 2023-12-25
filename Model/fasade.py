@@ -15,19 +15,19 @@ class RecSys:
         self.sort_pop_10_days_products = model.sorted_products_days()
         self.product_to_id, self.id_to_product, self.customer_to_id = model.indexing()
         self.csr_matrix = model.create_csr(self.customer_to_id, self.product_to_id)
-        self.model = model.model_als_fit(self.csr_matrix, self.customer_to_id, self.product_to_id, factors=100, iterations=1)
+        self.model = model.model_als_fit(self.csr_matrix, self.customer_to_id, self.product_to_id, factors=500, iterations=2)
         return self.model
 
     def vectorization(self):
 
         pairs = Vectorization(self.orders_train, self.orders_test, self.product_to_id, self.customer_to_id)
 
-        self.pairs, self.test_vecs = pairs.train_valid_union()
+        self.pairs = pairs.train_valid_union()
 
-        return self.pairs, self.test_vecs
+        return self.pairs
 
     def recommendations(self):
 
-        recs = Recommendations(self.model, self.products_data, self.sort_pop_products, self.sort_pop_10_days_products, self.pairs, self.test_vecs, self.csr_matrix, self.id_to_product, self.product_to_id, self.customer_to_id)
+        recs = Recommendations(self.model, self.products_data, self.sort_pop_products, self.sort_pop_10_days_products, self.pairs, self.csr_matrix, self.id_to_product, self.product_to_id, self.customer_to_id)
 
         return recs

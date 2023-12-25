@@ -16,7 +16,7 @@ orders_train = (
 orders_test = (
     pd.read_csv(
         os.path.join(root_data_dir, 'Data', 'test_data.zip'),
-        nrows=5000,
+        nrows=10000,
         index_col=0))
 
 
@@ -37,7 +37,7 @@ model.vectorization()
 
 recsys = model.recommendations()
 
-recs_pers, acc_pers = recsys.personal_rec('7f9078054f', N=50)
+recs_pers, acc_pers = recsys.personal_rec('71dd99ef78', N=50)
 recs_pop, acc_pop = recsys.popularity_rec(N=50)
 recs_pop_last10days, acc_pop_last10days = recsys.popularity_rec_days(N=50)
 recs_rand, acc_rand = recsys.random_rec(N=50)

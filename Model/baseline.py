@@ -34,14 +34,22 @@ class BaseLine:
         
     def indexing(self):
 
+        #all_orders_data = pd.concat([self.orders_train, self.orders_test])
+
+
+
+        
         unique_customers_train = self.orders_train.customer_id.unique()
         unique_customers_test = self.orders_test.customer_id.unique()
 
         unique_products_train = self.orders_train.product_id.unique()
         unique_products_test = self.orders_test.product_id.unique()
 
-        unique_customers = np.unique(np.concatenate((unique_customers_train, unique_customers_test), axis=None))
-        unique_products = np.unique(np.concatenate((unique_products_train, unique_products_test), axis=None))
+        unique_customers = unique_customers_train
+        unique_products = unique_products_train
+        
+        #unique_customers = np.unique(np.concatenate((unique_customers_train, unique_customers_test), axis=None))
+        #unique_products = np.unique(np.concatenate((unique_products_train, unique_products_test), axis=None))
 
         # прямая и обратная индексация контента
         product_to_id = {j: i for i, j in enumerate(unique_products)}
